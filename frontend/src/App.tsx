@@ -4,10 +4,12 @@ import Signup from "./components/ui/Signup";
 import Signin from "./components/ui/Signin";
 import Home from "./components/ui/Home";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate=useNavigate();
   useEffect(() => {
     fetch("https://commitlist-backend.onrender.com/auth/user", {
       method: "POST",
@@ -17,9 +19,11 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         if (res.msg === "success") {
+          navigate("/home");
           setIsLoggedIn(true);
         } else if (res.msg === "failure") {
           console.log("logged out");
+          navigate("/signin");
         }
       });
   }, []);
