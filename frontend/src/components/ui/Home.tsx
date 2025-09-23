@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Todo from "./Todo.js";
+import Todo from "./Todo.tsx";
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
