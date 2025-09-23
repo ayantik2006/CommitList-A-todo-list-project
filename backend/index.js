@@ -5,12 +5,12 @@ require("dotenv").config();
 const mongodb=require("./config/db.js");
 
 const app=express();
+mongodb();
 const PORT = process.env.PORT || 8080;
 const SECRET=process.env.SECRET;
 app.listen(PORT,()=>{
     console.log("server live");    
 });
-mongodb();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.set("view engine","ejs");
