@@ -32,18 +32,8 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 // Catch-all route for React
-app.use((req, res, next) => {
-  // Only serve index.html if request is not API
-  if (!req.path.startsWith("/auth") && !req.path.startsWith("/todo")) {
-    res.sendFile(path.join(frontendPath, "index.html"), (err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Something went wrong");
-      }
-    });
-  } else {
-    next();
-  }
+app.get("*",(req,res)=>{
+  res.redirect("https://www.google.com");
 });
 
 // Start server
