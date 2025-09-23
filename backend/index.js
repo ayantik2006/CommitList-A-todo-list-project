@@ -16,7 +16,7 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-const buildPath = path.join("../", "frontend", "dist");
+const buildPath = path.join(__dirname, "..", "frontend", "dist");
 app.use(express.static(buildPath));
 
 app.set("view engine","ejs");
@@ -34,5 +34,5 @@ const { mongo } = require("mongoose");
 app.use("/auth",authRoutes);
 app.use("/todo",todoRoutes);
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "dist", "index.html"));
+  res.sendFile(path.join(buildPath, "index.html"));
 });
