@@ -22,8 +22,8 @@ app.use(cors({
 }));
 
 // Serve frontend static files
-const frontendPath = path.join(__dirname, "..", "frontend", "dist");
-app.use(express.static(frontendPath));
+/*const frontendPath = path.join(__dirname, "..", "frontend", "dist");
+app.use(express.static(frontendPath));*/
 
 // API routes
 const authRoutes = require("./routes/auth.js");
@@ -33,7 +33,7 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
+  res.redirect("https://commitlist-a-todo-list-project.onrender.com");
 });
 
 // Start server
