@@ -15,7 +15,7 @@ function Signup() {
         onSubmit={(e) => {
           e.preventDefault();
           const data = new FormData(e.currentTarget);
-          fetch("http://localhost:8080/auth/signup", {
+          fetch("https://commitlist-backend.onrender.com/auth/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
