@@ -74,7 +74,7 @@ exports.signin = async (req, res) => {
     res.cookie("id", token, {
       httpOnly: true,
       secure: true, // later change to true
-      sameSite: "strict",
+      sameSite: "lax",
     });
     res.json({ msg: "success" });
   }
@@ -86,7 +86,7 @@ exports.signout = async (req, res) => {
     res.clearCookie("id", {
       httpOnly: true,
       secure: true, // later make it true
-      sameSite: "strict", 
+      sameSite: "lax", 
     });
     return res.json({});
   } catch (e) {
