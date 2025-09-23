@@ -5,6 +5,7 @@ import Todo from "./Todo.tsx";
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true); // new state
   const navigate = useNavigate();
   const [todoList, setTodoList] = useState([]);
   const [todoIdList, setTodoIdList] = useState([]);
@@ -12,22 +13,24 @@ function Home() {
   const [isChecked, setisChecked] = useState([]);
   const inputRef = useRef(null);
   useEffect(() => {
-    fetch("https://commitlist-backend.onrender.com/auth/user", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.msg === "success") {
-          setIsLoggedIn(true);
-        } else if (res.msg === "failure") {
-          navigate("/signin");
-        }
-      });
-  }, []);
+  fetch("https://commitlist-backend.onrender.com/auth/user", {
+    method: "POST",        // your POST method is fine
+    credentials: "include", 
+    headers: { "Content-Type": "application/json" },
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.msg === "success") {
+        setIsLoggedIn(true);
+      }
+      setLoading(false);   // stop loading regardless of success/failure
+      if (res.msg === "failure") {
+        navigate("/signin");
+      }
+    });
+}, []);
  
-  if (isLoggedIn)
+  if (!loading){
      useEffect(() => {
     fetch("https://commitlist-backend.onrender.com/todo/read", {
       method: "POST",
@@ -151,6 +154,7 @@ function Home() {
         </div>
       </div>
     );
+  }
 }
 
 export default Home;
