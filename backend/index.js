@@ -32,15 +32,10 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 // Catch-all route for React
-app.get('*', (req, res, next) => {
-  // Don't serve index.html for API routes
-  if (req.path.startsWith('/auth') || req.path.startsWith('/todo')) return next();
-  res.sendFile(path.join(frontendPath, 'index.html'), err => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error loading SPA');
-    }
-  });
+app.get('/*', (req, res) => {
+  // serve index.html only for non-API routes
+  if (req.path.startsWith('/auth') || req.path.startsWith('/todo')) return res.status(404).send('API route not found');
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 // Start server
