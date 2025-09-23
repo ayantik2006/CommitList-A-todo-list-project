@@ -22,7 +22,7 @@ exports.sendVerificationLink = async (to, id) => {
         <h2 style="color: #4CAF50;">Welcome 🎉</h2>
         <p>Thanks for signing up! Please click the button below to verify your email:</p>
         <p style="color:#fa1946"><b>This link is valid only for 10 minutes.</b></p>
-        <a href="http://localhost:8080/auth/${id}" 
+        <a href="https://commitlist-backend.onrender.com/auth/${id}" 
            style="display:inline-block; padding:10px 15px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">
            Verify Email
         </a>
