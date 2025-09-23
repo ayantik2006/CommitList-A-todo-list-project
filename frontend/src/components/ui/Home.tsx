@@ -11,70 +11,86 @@ function Home() {
   const [editedTime, setEditedTime] = useState([]);
   const [isChecked, setisChecked] = useState([]);
   const inputRef = useRef(null);
+
   useEffect(() => {
-    fetch("https://commitlist-backend.onrender.com/auth/user", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.msg === "success") {
-          setIsLoggedIn(true);
-              fetch("https://commitlist-backend.onrender.com/todo/read", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.msg === "logged out") {
+    const fetchUserAndTodos = async () => {
+      try {
+        const userRes = await fetch(
+          "https://commitlist-backend.onrender.com/auth/user",
+          {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const userData = await userRes.json();
+
+        if (userData.msg === "failure") {
           navigate("/signin");
-        } else if (res.msg === "success") {
-          const userData = res.data;
-          let todoList2 = [];
-          let todoIdList2 = [];
-          let editedTime2 = [];
-          let isChecked2 = [];
-          for (const data of userData) {
+          return;
+        }
+
+        setIsLoggedIn(true);
+
+        const todoRes = await fetch(
+          "https://commitlist-backend.onrender.com/todo/read",
+          {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const todoData = await todoRes.json();
+
+        if (todoData.msg === "logged out") {
+          navigate("/signin");
+        } else if (todoData.msg === "success") {
+          const userTodos = todoData.data;
+          const todoList2 = [];
+          const todoIdList2 = [];
+          const editedTime2 = [];
+          const isChecked2 = [];
+
+          for (const data of userTodos) {
             todoList2.push(data.todoContent);
             todoIdList2.push(data._id);
             editedTime2.push(data.editedTime);
             isChecked2.push(data.isChecked);
           }
+
           setTodoList(todoList2);
           setTodoIdList(todoIdList2);
           setEditedTime(editedTime2);
           setisChecked(isChecked2);
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err);
-      });
-  },
-        } else if (res.msg === "failure") {
-          navigate("/signin");
-        }
-      });
-  }, []);
-  
+      }
+    };
+
+    fetchUserAndTodos();
+  }, [navigate]);
+
   if (isLoggedIn)
     return (
       <div className="bg-black min-h-screen w-screen flex flex-col items-center">
         <div className="w-full h-10 bg-gray-800 border-b-1 border-gray-600 flex flex-row-reverse ">
           <button
             className="mr-5 text-gray-400 cursor-pointer hover:scale-[1.05] duration-300 hover:text-gray-200"
-            onClick={() => {
-              fetch("https://commitlist-backend.onrender.com/auth/signout", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" }
-              })
-              .then((res)=>res.json())
-              .then((res)=>{
+            onClick={async () => {
+              try {
+                await fetch(
+                  "https://commitlist-backend.onrender.com/auth/signout",
+                  {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                  }
+                );
                 navigate("/signin");
-              })
-              .catch((err)=>{console.log(err)})
+              } catch (err) {
+                console.log(err);
+              }
             }}
           >
             <i className="fa-solid fa-right-from-bracket "></i>
@@ -92,7 +108,7 @@ function Home() {
         </span>
         <button
           className="bg-green-500 w-70 sm:w-150 md:w-180 mt-2 rounded h-8 font-bold text-[1.2rem] cursor-pointer hover:bg-green-600 duration-300 "
-          onClick={() => {
+          onClick={async () => {
             const now = new Date();
             const dateTime =
               now.getDate() +
@@ -104,33 +120,34 @@ function Home() {
               now.getHours() +
               ":" +
               now.getMinutes();
-            fetch("https://commitlist-backend.onrender.com/todo/create", {
-              method: "POST",
-              credentials: "include",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                todoContent: inputRef.current.value,
-                editedTime: dateTime,
-              }),
-            })
-              .then((res) => res.json())
-              .then((res) => {
-                if (res.msg === "success") {
-                  setTodoIdList([res.id, ...todoIdList]);
-                  setTodoList([inputRef.current.value, ...todoList]);
-                  setEditedTime([dateTime, ...editedTime]);
-                  setisChecked([false, ...isChecked]);
-                  inputRef.current.value = "";
-                } else if (res.msg === "logged out") {
-                  console.log(res.msg);
-                  navigate("/signin");
-                } else if (res.msg === "empty") {
-                  toast.warn("Can't create empty task!");
+            try {
+              const res = await fetch(
+                "https://commitlist-backend.onrender.com/todo/create",
+                {
+                  method: "POST",
+                  credentials: "include",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    todoContent: inputRef.current.value,
+                    editedTime: dateTime,
+                  }),
                 }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+              );
+              const result = await res.json();
+              if (result.msg === "success") {
+                setTodoIdList([result.id, ...todoIdList]);
+                setTodoList([inputRef.current.value, ...todoList]);
+                setEditedTime([dateTime, ...editedTime]);
+                setisChecked([false, ...isChecked]);
+                inputRef.current.value = "";
+              } else if (result.msg === "logged out") {
+                navigate("/signin");
+              } else if (result.msg === "empty") {
+                toast.warn("Can't create empty task!");
+              }
+            } catch (err) {
+              console.log(err);
+            }
           }}
         >
           <i className="fa-solid fa-plus"></i>
