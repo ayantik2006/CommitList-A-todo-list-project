@@ -12,7 +12,7 @@ function Home() {
   const [isChecked, setisChecked] = useState([]);
   const inputRef = useRef(null);
   useEffect(() => {
-    fetch("http://localhost:8080/auth/user", {
+    fetch("https://commitlist-backend.onrender.com/auth/user", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -27,7 +27,7 @@ function Home() {
       });
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8080/todo/read", {
+    fetch("https://commitlist-backend.onrender.com/todo/read", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -104,7 +104,7 @@ function Home() {
               now.getHours() +
               ":" +
               now.getMinutes();
-            fetch("http://localhost:8080/todo/create", {
+            fetch("https://commitlist-backend.onrender.com/todo/create", {
               method: "POST",
               credentials: "include",
               headers: { "Content-Type": "application/json" },
