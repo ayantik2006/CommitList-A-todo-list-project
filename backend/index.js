@@ -38,7 +38,7 @@ app.use((req, res, next) => {
   }
   // serve React index.html
   //res.sendFile(path.join(frontendPath, "index.html"));
-  res.redirect("https://commitlist-a-todo-list-project.onrender.com/home");
+  res.redirect("https://commitlist-a-todo-list-project.onrender.com");
 });
 
 // Start server
