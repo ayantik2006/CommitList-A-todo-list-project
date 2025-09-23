@@ -21,13 +21,7 @@ function Home() {
       .then((res) => {
         if (res.msg === "success") {
           setIsLoggedIn(true);
-        } else if (res.msg === "failure") {
-          navigate("/signin");
-        }
-      });
-  }, []);
-  useEffect(() => {
-    fetch("https://commitlist-backend.onrender.com/todo/read", {
+              fetch("https://commitlist-backend.onrender.com/todo/read", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -57,7 +51,13 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
+  },
+        } else if (res.msg === "failure") {
+          navigate("/signin");
+        }
+      });
   }, []);
+  
   if (isLoggedIn)
     return (
       <div className="bg-black min-h-screen w-screen flex flex-col items-center">
