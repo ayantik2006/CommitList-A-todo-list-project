@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <Routes>
-        {/*<Route path="/" element={isLoggedIn ? <Home /> : <Signin />} />*/}
+        <Route path="/" element={isLoggedIn ? <Home /> : <Signin />} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/signin" element={<Signin/>} />
         <Route path="/home" element={<Home/>} />
