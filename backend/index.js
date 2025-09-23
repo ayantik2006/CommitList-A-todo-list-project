@@ -32,11 +32,7 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 // Catch-all route for React
-app.get("*", (req, res) => {
-  // ignore API routes
-  if (req.path.startsWith("/auth") || req.path.startsWith("/todo")) {
-    return res.status(404).send("API endpoint not found");
-  }
+app.get("/*", (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
