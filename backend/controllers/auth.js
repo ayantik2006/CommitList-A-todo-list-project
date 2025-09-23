@@ -59,7 +59,9 @@ exports.verify = async (req, res) => {
 
 exports.signin = async (req, res) => {
   const { email, password } = req.body;
+  console.log("before");
   let userData = await Account.findOne({ email: email });
+  console.log("before");
   if (userData === null) {
     return res.json({ msg: "failure" });
   } else if (
