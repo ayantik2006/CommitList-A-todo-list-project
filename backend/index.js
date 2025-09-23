@@ -33,8 +33,3 @@ const todoRoutes=require("./routes/todo.js");
 const { mongo } = require("mongoose");
 app.use("/auth",authRoutes);
 app.use("/todo",todoRoutes);
-
-// Catch-all route for React Router
-app.use((req, res, next) => {
-  res.sendFile(path.join("../frontend", "index.html"));
-});
