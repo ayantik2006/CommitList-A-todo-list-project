@@ -49,7 +49,7 @@ function Todo({ id, todoContent, editedTime, isChecked }) {
                     now.getHours() +
                     ":" +
                     now.getMinutes();
-                  fetch("http://localhost:8080/todo/update-content", {
+                  fetch("https://commitlist-backend.onrender.com/todo/update-content", {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },
@@ -91,7 +91,7 @@ function Todo({ id, todoContent, editedTime, isChecked }) {
                   }, 4000);
                 } else if (e.target.classList.contains("fa-check")) {
                   e.target.parentNode.parentNode.parentNode.parentNode.remove();
-                  fetch("http://localhost:8080/todo/delete", {
+                  fetch("https://commitlist-backend.onrender.com/todo/delete", {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },
@@ -125,7 +125,7 @@ function Todo({ id, todoContent, editedTime, isChecked }) {
           checked={checked}
           onChange={(e) => {
             setChecked(e.target.checked);
-            fetch("http://localhost:8080/todo/update-checked", {
+            fetch("https://commitlist-backend.onrender.com/todo/update-checked", {
               method: "POST",
               credentials: "include",
               headers: { "Content-Type": "application/json" },
