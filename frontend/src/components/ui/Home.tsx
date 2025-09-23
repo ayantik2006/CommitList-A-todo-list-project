@@ -26,7 +26,9 @@ function Home() {
         }
       });
   }, []);
-  useEffect(() => {
+ 
+  if (isLoggedIn)
+     useEffect(() => {
     fetch("https://commitlist-backend.onrender.com/todo/read", {
       method: "POST",
       credentials: "include",
@@ -58,7 +60,6 @@ function Home() {
         console.log(err);
       });
   }, []);
-  if (isLoggedIn)
     return (
       <div className="bg-black min-h-screen w-screen flex flex-col items-center">
         <div className="w-full h-10 bg-gray-800 border-b-1 border-gray-600 flex flex-row-reverse ">
