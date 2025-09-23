@@ -11,6 +11,7 @@ const SECRET=process.env.SECRET;
 app.listen(PORT,()=>{
     console.log("server live");    
 });
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.set("view engine","ejs");
