@@ -3,12 +3,12 @@ const MONGO_URL=process.env.MONGO_URL;
 
 const mongodb = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL, {
+    await mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
   } 
-  catch (err) {}
+  catch (err) {console.log("db connection failed")}
 };
 
 module.exports = mongodb;
