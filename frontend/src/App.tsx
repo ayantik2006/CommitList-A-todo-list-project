@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    fetch("http://localhost:8080/auth/user", {
+    fetch("https://commitlist-backend.onrender.com/auth/user", {
       method: "POST",
       credentials:"include",
       headers: { "Content-Type": "application/json" },
