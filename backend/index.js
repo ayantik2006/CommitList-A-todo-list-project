@@ -22,7 +22,7 @@ app.use(cors({
 }));
 
 const frontendPath = path.join(__dirname, "..", "frontend", "dist");
-app.use(express.static(frontendPath));
+app.use(express.static(frontendPath, { index: false }));
 
 // API routes
 const authRoutes = require("./routes/auth.js");
@@ -32,8 +32,15 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 // Catch-all route for React
-app.use((req, res) => {
-  res.redirect("https://www.google.com"); // or your desired URL
+app.get('*', (req, res, next) => {
+  // Don't serve index.html for API routes
+  if (req.path.startsWith('/auth') || req.path.startsWith('/todo')) return next();
+  res.sendFile(path.join(frontendPath, 'index.html'), err => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error loading SPA');
+    }
+  });
 });
 
 // Start server
