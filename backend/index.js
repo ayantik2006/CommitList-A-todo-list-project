@@ -36,5 +36,5 @@ app.use("/todo",todoRoutes);
 
 // Catch-all route for React Router
 app.use((req, res, next) => {
-  res.sendFile(path.join(buildPath, "index.html"));
+  res.sendFile(path.join("../frontend", "index.html"));
 });
