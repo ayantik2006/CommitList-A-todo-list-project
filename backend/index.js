@@ -32,7 +32,7 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 // Catch-all route for React
-app.use((req, res) => {
+app.use((req, res, next) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
