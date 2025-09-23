@@ -73,7 +73,7 @@ exports.signin = async (req, res) => {
     const token = jwt.sign({ id: email }, SECRET);
     res.cookie("id", token, {
       httpOnly: true,
-      secure: false, // later change to true
+      secure: true, // later change to true
       sameSite: "strict",
     });
     res.json({ msg: "success" });
@@ -85,7 +85,7 @@ exports.signout = async (req, res) => {
     const email = jwt.verify(req.cookies.id, SECRET).id;
     res.clearCookie("id", {
       httpOnly: true,
-      secure: false, // later make it true
+      secure: true, // later make it true
       sameSite: "strict", 
     });
     return res.json({});
