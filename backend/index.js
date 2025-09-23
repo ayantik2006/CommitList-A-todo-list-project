@@ -22,7 +22,7 @@ app.use(cors({
 }));
 
 const frontendPath = path.join(__dirname, "..", "frontend", "dist");
-app.use(express.static(frontendPath, { index: false }));
+app.use(express.static(frontendPath));
 
 // API routes
 const authRoutes = require("./routes/auth.js");
@@ -32,7 +32,7 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 // Catch-all route for React
-app.get(/.*/, (req, res) => res.sendFile(path.join(frontendPath, "index.html")));
+app.get(*, (req, res) => res.sendFile(path.join(frontendPath, "index.html")));
 
 
 // Start server
