@@ -12,7 +12,7 @@ function Home() {
   const [isChecked, setisChecked] = useState([]);
   const inputRef = useRef(null);
   useEffect(() => {
-    fetch("https://commitlist-backend.onrender.com/user", {
+    fetch("https://commitlist-backend.onrender.com/auth/user", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
