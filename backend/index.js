@@ -31,15 +31,15 @@ app.use("/auth", authRoutes);
 app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
-app.use((req, res, next) => {
+// Catch-all route for React
+app.get("*", (req, res) => {
+  // ignore API routes
   if (req.path.startsWith("/auth") || req.path.startsWith("/todo")) {
-    // let API routes handle themselves
-    return next();
+    return res.status(404).send("API endpoint not found");
   }
-  // serve React index.html
-  //res.sendFile(path.join(frontendPath, "index.html"));
-  res.redirect("https://commitlist-a-todo-list-project.onrender.com");
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
+
 
 // Start server
 app.listen(PORT, () => {
