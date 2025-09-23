@@ -31,7 +31,7 @@ app.use("/auth", authRoutes);
 app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
-app.get("/*", (req, res) => {
+app.get("/:anyPath(*)", (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
