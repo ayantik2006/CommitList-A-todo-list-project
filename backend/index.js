@@ -18,14 +18,8 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-// Serve React build
 const buildPath = path.join(__dirname, "frontend", "build");
 app.use(express.static(buildPath));
-
-// Catch-all route for React Router
-app.get("*", (req, res) => {
-  res.sendFile(path.join(buildPath, "index.html"));
-});
 
 app.set("view engine","ejs");
 
@@ -41,3 +35,8 @@ const todoRoutes=require("./routes/todo.js");
 const { mongo } = require("mongoose");
 app.use("/auth",authRoutes);
 app.use("/todo",todoRoutes);
+
+// Catch-all route for React Router
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
+});
