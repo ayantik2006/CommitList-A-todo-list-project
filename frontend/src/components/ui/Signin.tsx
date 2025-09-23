@@ -14,7 +14,7 @@ function Signin() {
         onSubmit={(e) => {
           e.preventDefault();
           const data = new FormData(e.currentTarget);
-          fetch("http://localhost:8080/auth/signin", {
+          fetch("https://commitlist-backend.onrender.com/auth/signin", {
             method: "POST",
             credentials:"include",
             headers: { "Content-Type": "application/json" },
