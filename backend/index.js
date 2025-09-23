@@ -14,6 +14,9 @@ app.listen(PORT,()=>{
 app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+});
 app.set("view engine","ejs");
 
 app.use(cors({
