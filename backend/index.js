@@ -32,8 +32,8 @@ app.use("/todo", todoRoutes);
 
 // Catch-all route for React Router
 // Catch-all route for React
-app.get("*",(req,res)=>{
-  res.redirect("https://www.google.com");
+app.use((req, res) => {
+  res.redirect("https://www.google.com"); // or your desired URL
 });
 
 // Start server
