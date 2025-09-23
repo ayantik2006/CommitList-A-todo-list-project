@@ -18,9 +18,13 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-// Catch-all for React Router
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+// Serve React build
+const buildPath = path.join(__dirname, "frontend", "build");
+app.use(express.static(buildPath));
+
+// Catch-all route for React Router
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
 });
 
 app.set("view engine","ejs");
