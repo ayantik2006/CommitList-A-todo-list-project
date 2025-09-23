@@ -16,7 +16,7 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-const buildPath = path.join(__dirname, "frontend", "dist");
+const buildPath = path.join("../", "frontend", "dist");
 app.use(express.static(buildPath));
 
 app.set("view engine","ejs");
