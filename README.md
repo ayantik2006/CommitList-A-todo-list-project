@@ -10,12 +10,7 @@ Built with **React + TailwindCSS** on the frontend and **Node.js + Express + Mon
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Installation](#-installation)
-- [Environment Variables](#-environment-variables)
-- [Usage](#-usage)
-- [Screenshots](#-screenshots)
-- [Contributing](#-contributing)
-- [License](#-license)
-
+  
 ---
 
 ## 🧐 About
