@@ -22,21 +22,21 @@ exports.signup = async (req, res) => {
     return res.json({ msg: "email error 1" });
   } else if (userData !== null && userData.isVerified === false) {
     if (new Date().getTime() / 1000 - userData.linkSentAt >= 60) {
-      await Account.updateOne(
+      const user await Account.updateOne(
         { email: email },
         { linkSentAt: new Date().getTime() / 1000 }
       );
-      sendVerificationLink(email, userData._id);
+      sendVerificationLink(email, user._id);
       return res.json({ msg: "success" });
     } else return res.json({ msg: "email error 2" });
   } else if (userData === null) {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await Account.create({
+    const newUser=await Account.create({
       email: email,
       password: hashedPassword,
       linkSentAt: new Date().getTime() / 1000,
     });
-    sendVerificationLink(email, userData._id);
+    sendVerificationLink(email, newUser._id);
     res.json({ msg: "success" });
   }
 };
