@@ -59,9 +59,7 @@ exports.verify = async (req, res) => {
 
 exports.signin = async (req, res) => {
   const { email, password } = req.body;
-  console.log("before");
   let userData = await Account.findOne({ email: email });
-  console.log("before");
   if (userData === null) {
     return res.json({ msg: "failure" });
   } else if (
@@ -69,14 +67,17 @@ exports.signin = async (req, res) => {
     !(await bcrypt.compare(password, userData.password))
   ) {
     return res.json({ msg: "failure" });
-  } else {
+  }else if(userData!==null && userData.isVerified===false){
+    return res.json({ msg: "failure" });
+  }
+  else {
     const token = jwt.sign({ id: email }, SECRET);
     res.cookie("id", token, {
       httpOnly: true,
       secure: true, // later change to true
       sameSite: "none",
     });
-    res.json({ msg: "success" });
+    return res.json({ msg: "success" });
   }
 };
 
