@@ -22,7 +22,7 @@ exports.signup = async (req, res) => {
     return res.json({ msg: "email error 1" });
   } else if (userData !== null && userData.isVerified === false) {
     if (new Date().getTime() / 1000 - userData.linkSentAt >= 60) {
-      const user await Account.updateOne(
+      const user = await Account.updateOne(
         { email: email },
         { linkSentAt: new Date().getTime() / 1000 }
       );
