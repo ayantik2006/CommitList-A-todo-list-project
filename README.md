@@ -16,7 +16,7 @@ Built with **React + TailwindCSS** on the frontend and **Node.js + Express + Mon
 ## 🧐 About
 
 CommitList is designed to help users stay organized and productive.  
-With **secure authentication** using JWT and bcrypt, and **email verification** powered by Nodemailer, every user gets a private space to manage their tasks efficiently.
+With **secure authentication** using JWT and bcrypt, and **email verification** powered by SendGrid, every user gets a private space to manage their tasks efficiently.
 
 ---
 
