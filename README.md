@@ -25,7 +25,7 @@ With **secure authentication** using JWT and bcrypt, and **email verification** 
 - 👤 **User Authentication**
   - Sign Up & Log In
   - Secure password hashing with bcrypt
-  - Email verification with Nodemailer
+  - Email verification with SendGrid
 
 - 📝 **Task Management**
   - Add new tasks
