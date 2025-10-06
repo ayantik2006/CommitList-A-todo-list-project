@@ -48,7 +48,7 @@ With **secure authentication** using JWT and bcrypt, and **email verification** 
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB  
 - **Authentication:** bcrypt + JWT  
-- **Email Service:** Nodemailer  
+- **Email Service:** SendGrid  
 
 ---
 
